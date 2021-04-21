@@ -1,0 +1,8 @@
+pandas
+glob2
+tqdm
+six
+gensim==3.6.0
+numpy
+scikit_learn
+tensorboardX

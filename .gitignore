@@ -1,0 +1,12 @@
+tmp/
+logging/
+saving/
+data/
+*.zip
+*.csv
+*.ipynb
+__pycache__
+.vscode
+Solution.md
+login.sh
+
