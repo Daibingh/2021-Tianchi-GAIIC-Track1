@@ -20,8 +20,6 @@ from dataset.bertdataset import *
 from utils.misc import *
 import time
 from train import crt_model
-# from functools import partial 
-# from utils.lookahead import Lookahead
 from tqdm import tqdm
 
 
