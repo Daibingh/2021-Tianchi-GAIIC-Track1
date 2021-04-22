@@ -4,9 +4,9 @@
     "epochs": 200,
     "batch_size": 100,
     "optimizer": "AdamW",
-    "lr": 0.001,
+    "lr": 0.0005,
     "momentum": 0.9,
-    "weight_decay": 0.01,
+    "weight_decay": 0.005,
     "workers": 4,
     "dataset_splits": [
         8,
@@ -40,7 +40,7 @@
     "rnn_dim": 256,
     "wv_model_file": "data/wv_model_128.pkl",
     "fix_emb": false,
-    "dropout": 0.2,
+    "dropout": 0.25,
     "emb_pretrain": false,
     "num_label": 12,
     "data_file": [
@@ -50,7 +50,7 @@
         "data/rd2_train_label2.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 10,
     "fold_start": 1,
     "model_name": "gru",
     "rnn_num_layer": 2,

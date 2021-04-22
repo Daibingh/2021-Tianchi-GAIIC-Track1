@@ -68,7 +68,8 @@ class Trainer:
         self.best_epoch = None
         self.best_model = None
 
-    def get_parser(self):
+    @staticmethod
+    def get_parser():
         parser = argparse.ArgumentParser()
 
         parser.add_argument('--info', default='None')
