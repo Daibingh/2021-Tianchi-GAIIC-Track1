@@ -1212,252 +1212,252 @@ class CNN_BiGRU(nn.Module):
         return x
 
 
-def crt_model(F):
-    if F.model_name.lower() == "baseline":
-        return Baseline(
-            F.emb_size, 
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            fix_emb=F.fix_emb,
-            dropout=F.dropout,
-            use_pretrain=F.emb_pretrain,
-        )
-    elif F.model_name.lower() == "lstm":
-        return LSTM_model(
-            F.emb_size, 
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            fix_emb=F.fix_emb,
-            dropout=F.dropout,
-            use_pretrain=F.emb_pretrain,
-            bidirectional=F.rnn_bid,
-            num_layer=F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "gru":
-        return GRU_model(
-            F.emb_size, 
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            fix_emb=F.fix_emb,
-            dropout=F.dropout,
-            use_pretrain=F.emb_pretrain,
-            bidirectional=F.rnn_bid,
-            num_layer=F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "transformer":
-        return TF_model(
-            F.emb_size,
-            F.wv_model_file,
-            F.num_label,
-            F.emb_pretrain,
-            F.fix_emb,
-            dim_feedforward=128,
-            dropout=F.dropout,
-            nhead=F.tfe_nhead,
-        )
-    elif F.model_name.lower() == "nn":
-        return NN_model(
-            F.feat_dim,
-            F.num_label,
-            F.dropout,
-        )
-    elif F.model_name.lower() == "gru_tf":
-        return GRU_TF(
-                emb_size=F.emb_size,
-                wv_model_file=F.wv_model_file,
-                h_size=F.rnn_dim,
-                num_label=F.num_label,
-                fix_emb=F.fix_emb,
-                use_pretrain=F.emb_pretrain,
-                bidirectional=F.rnn_bid,
-                num_layer=F.rnn_num_layer,
-                nhead=F.tfe_nhead,
-                dim_feedforward=256,
-                dropout=F.dropout,
-              )
-    elif F.model_name.lower() == "nn_gru":
-        return NN_GRU(
-                nn_input_dim=F.feat_dim,
-                num_label=F.num_label,
-                emb_size=F.emb_size,
-                wv_model_file=F.wv_model_file,
-                nn_h_size=512,
-                h_size=F.rnn_dim,
-                fix_emb=F.fix_emb,
-                use_pretrain=F.emb_pretrain,
-                bidirectional=F.rnn_bid,
-                num_layer=F.rnn_num_layer,
-                dropout=F.dropout,
-        )
-    elif F.model_name.lower() == "textcnn":
-        return TextCNN(
-            emb_size=F.emb_size, 
-            num_label=F.num_label,
-            wv_model_file=F.wv_model_file,
-            use_pretrain=F.emb_pretrain,
-            fix_emb=F.fix_emb,
-            kernel_num=100,
-            kernel_size=[3,4,5],
-            dropout=F.dropout,
-        )
-    elif F.model_name.lower() == "bilstm_atten":
-        return BiLSTM_Atten(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "bilstm_atten2":
-        return BiLSTM_Atten2(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_num_layer,
-        )
+# def crt_model(F):
+#     if F.model_name.lower() == "baseline":
+#         return Baseline(
+#             F.emb_size, 
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             fix_emb=F.fix_emb,
+#             dropout=F.dropout,
+#             use_pretrain=F.emb_pretrain,
+#         )
+#     elif F.model_name.lower() == "lstm":
+#         return LSTM_model(
+#             F.emb_size, 
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             fix_emb=F.fix_emb,
+#             dropout=F.dropout,
+#             use_pretrain=F.emb_pretrain,
+#             bidirectional=F.rnn_bid,
+#             num_layer=F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "gru":
+#         return GRU_model(
+#             F.emb_size, 
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             fix_emb=F.fix_emb,
+#             dropout=F.dropout,
+#             use_pretrain=F.emb_pretrain,
+#             bidirectional=F.rnn_bid,
+#             num_layer=F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "transformer":
+#         return TF_model(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.num_label,
+#             F.emb_pretrain,
+#             F.fix_emb,
+#             dim_feedforward=128,
+#             dropout=F.dropout,
+#             nhead=F.tfe_nhead,
+#         )
+#     elif F.model_name.lower() == "nn":
+#         return NN_model(
+#             F.feat_dim,
+#             F.num_label,
+#             F.dropout,
+#         )
+#     elif F.model_name.lower() == "gru_tf":
+#         return GRU_TF(
+#                 emb_size=F.emb_size,
+#                 wv_model_file=F.wv_model_file,
+#                 h_size=F.rnn_dim,
+#                 num_label=F.num_label,
+#                 fix_emb=F.fix_emb,
+#                 use_pretrain=F.emb_pretrain,
+#                 bidirectional=F.rnn_bid,
+#                 num_layer=F.rnn_num_layer,
+#                 nhead=F.tfe_nhead,
+#                 dim_feedforward=256,
+#                 dropout=F.dropout,
+#               )
+#     elif F.model_name.lower() == "nn_gru":
+#         return NN_GRU(
+#                 nn_input_dim=F.feat_dim,
+#                 num_label=F.num_label,
+#                 emb_size=F.emb_size,
+#                 wv_model_file=F.wv_model_file,
+#                 nn_h_size=512,
+#                 h_size=F.rnn_dim,
+#                 fix_emb=F.fix_emb,
+#                 use_pretrain=F.emb_pretrain,
+#                 bidirectional=F.rnn_bid,
+#                 num_layer=F.rnn_num_layer,
+#                 dropout=F.dropout,
+#         )
+#     elif F.model_name.lower() == "textcnn":
+#         return TextCNN(
+#             emb_size=F.emb_size, 
+#             num_label=F.num_label,
+#             wv_model_file=F.wv_model_file,
+#             use_pretrain=F.emb_pretrain,
+#             fix_emb=F.fix_emb,
+#             kernel_num=100,
+#             kernel_size=[3,4,5],
+#             dropout=F.dropout,
+#         )
+#     elif F.model_name.lower() == "bilstm_atten":
+#         return BiLSTM_Atten(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "bilstm_atten2":
+#         return BiLSTM_Atten2(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_num_layer,
+#         )
 
-    elif F.model_name.lower() == "maskgru_model":
-        return MaskGRU_model(
-                emb_size=F.emb_size,
-                wv_model_file=F.wv_model_file,
-                h_size=F.rnn_dim,
-                num_label=F.num_label,
-                fix_emb=F.fix_emb,
-                dropout=F.dropout,
-                use_pretrain=F.emb_pretrain,
-                bidirectional=F.rnn_bid,
-                num_layer=F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "gru_model2":
-        return GRU_model2(
-            F.emb_size, 
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            fix_emb=F.fix_emb,
-            dropout=F.dropout,
-            use_pretrain=F.emb_pretrain,
-            bidirectional=F.rnn_bid,
-            num_layer=F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "bigru_atten2":
-        return BiGRU_Atten2(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "rcnn":
-        return RCNN(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "rcnn2":
-        return RCNN2(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "bigru_atten":
-        return BiGRU_Atten(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "textcnn2":
-        return TextCNN2(
-                emb_size=F.emb_size,
-                wv_model_file=F.wv_model_file,
-                num_channels=100,
-                kernel_size = [3,4,5],
-                seq_max_len=F.desc_max_len,
-                num_label=F.num_label,
-                fix_emb=F.fix_emb,
-                dropout=F.dropout,
-                use_pretrain=F.emb_pretrain,
-        )
-    elif F.model_name.lower() == "seq2seqatten":
-        return Seq2SeqAtten(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_bid,
-            F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "seq2seqatten2":
-        return Seq2SeqAtten2(
-            F.emb_size,
-            F.wv_model_file,
-            F.rnn_dim,
-            F.num_label,
-            F.fix_emb,
-            F.dropout,
-            F.emb_pretrain,
-            F.rnn_bid,
-            F.rnn_num_layer,
-        )
-    elif F.model_name.lower() == "fasttext":
-        return FastText(
-                emb_size=F.emb_size,
-                wv_model_file=F.wv_model_file,
-                h_size=32,
-                num_label=F.num_label,    
-                use_pretrain=F.emb_pretrain,
-                fix_emb=F.fix_emb,
-                dropout=F.dropout,
-            )
-    elif F.model_name.lower() == "cnn_bigru":
-        return CNN_BiGRU(
-            F.wv_model_file,
-            F.emb_size,
-            F.rnn_dim,
-            num_label=F.num_label,
-            dropout=F.dropout,
-            num_layer=F.rnn_num_layer,
-            use_pretrain=F.emb_pretrain,
-            fix_emb=F.fix_emb,
-        )
+#     elif F.model_name.lower() == "maskgru_model":
+#         return MaskGRU_model(
+#                 emb_size=F.emb_size,
+#                 wv_model_file=F.wv_model_file,
+#                 h_size=F.rnn_dim,
+#                 num_label=F.num_label,
+#                 fix_emb=F.fix_emb,
+#                 dropout=F.dropout,
+#                 use_pretrain=F.emb_pretrain,
+#                 bidirectional=F.rnn_bid,
+#                 num_layer=F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "gru_model2":
+#         return GRU_model2(
+#             F.emb_size, 
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             fix_emb=F.fix_emb,
+#             dropout=F.dropout,
+#             use_pretrain=F.emb_pretrain,
+#             bidirectional=F.rnn_bid,
+#             num_layer=F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "bigru_atten2":
+#         return BiGRU_Atten2(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "rcnn":
+#         return RCNN(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "rcnn2":
+#         return RCNN2(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "bigru_atten":
+#         return BiGRU_Atten(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "textcnn2":
+#         return TextCNN2(
+#                 emb_size=F.emb_size,
+#                 wv_model_file=F.wv_model_file,
+#                 num_channels=100,
+#                 kernel_size = [3,4,5],
+#                 seq_max_len=F.desc_max_len,
+#                 num_label=F.num_label,
+#                 fix_emb=F.fix_emb,
+#                 dropout=F.dropout,
+#                 use_pretrain=F.emb_pretrain,
+#         )
+#     elif F.model_name.lower() == "seq2seqatten":
+#         return Seq2SeqAtten(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_bid,
+#             F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "seq2seqatten2":
+#         return Seq2SeqAtten2(
+#             F.emb_size,
+#             F.wv_model_file,
+#             F.rnn_dim,
+#             F.num_label,
+#             F.fix_emb,
+#             F.dropout,
+#             F.emb_pretrain,
+#             F.rnn_bid,
+#             F.rnn_num_layer,
+#         )
+#     elif F.model_name.lower() == "fasttext":
+#         return FastText(
+#                 emb_size=F.emb_size,
+#                 wv_model_file=F.wv_model_file,
+#                 h_size=32,
+#                 num_label=F.num_label,    
+#                 use_pretrain=F.emb_pretrain,
+#                 fix_emb=F.fix_emb,
+#                 dropout=F.dropout,
+#             )
+#     elif F.model_name.lower() == "cnn_bigru":
+#         return CNN_BiGRU(
+#             F.wv_model_file,
+#             F.emb_size,
+#             F.rnn_dim,
+#             num_label=F.num_label,
+#             dropout=F.dropout,
+#             num_layer=F.rnn_num_layer,
+#             use_pretrain=F.emb_pretrain,
+#             fix_emb=F.fix_emb,
+#         )
 
-    else:
-        print("model not found!")
-        sys.exit(-1)
+#     else:
+#         print("model not found!")
+#         sys.exit(-1)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
     # model = Baseline(
     #     128, 
@@ -1470,7 +1470,7 @@ if __name__ == "__main__":
     # y = model(x)
     # print(y.shape)
     
-    m = MaskGRU(5, 10)
-    x = torch.rand(2, 3, 5)
-    y = m(x, bid=True, mask_zero=True)
+    # m = MaskGRU(5, 10)
+    # x = torch.rand(2, 3, 5)
+    # y = m(x, bid=True, mask_zero=True)
 
