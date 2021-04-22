@@ -4,7 +4,7 @@ import torch.nn as nn
 import numpy as np
 import pandas as pd 
 from utils.utils import *
-from utils.transformer import TransformerEncoderLayer as TFE
+from .transformer import TransformerEncoderLayer as TFE
 
 
 class MaskLSTM(nn.Module):
