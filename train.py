@@ -60,6 +60,41 @@ def crt_model(F):
             use_pretrain=F.emb_pretrain,
             num_layer=F.rnn_num_layer,
         )
+    elif name == "seq2seqatten":
+        model = Seq2SeqAtten(
+            emb_size=F.emb_size,
+            wv_model_file=F.wv_model_file,
+            h_size=F.rnn_dim,
+            num_label=F.num_label,
+            fix_emb=F.fix_emb,
+            use_pretrain=F.emb_pretrain,
+            dropout=F.dropout,
+            num_layer=F.rnn_num_layer,
+            bidirectional=F.rnn_bid,
+            )
+    elif name == "seq2seqatten2":
+        model = Seq2SeqAtten2(
+            emb_size=F.emb_size,
+            wv_model_file=F.wv_model_file,
+            h_size=F.rnn_dim,
+            num_label=F.num_label,
+            fix_emb=F.fix_emb,
+            use_pretrain=F.emb_pretrain,
+            dropout=F.dropout,
+            num_layer=F.rnn_num_layer,
+            bidirectional=F.rnn_bid,
+            )
+    elif name == "maskgru":
+        model = MaskGRU_model(
+            emb_size=F.emb_size,
+            wv_model_file=F.wv_model_file,
+            h_size=F.rnn_dim,
+            num_label=F.num_label,
+            fix_emb=F.fix_emb,
+            use_pretrain=F.emb_pretrain,
+            dropout=F.dropout,
+            bidirectional=F.rnn_bid,
+            )
     elif name == "bert":
         vocab = read_pkl(F.vocab_file)
         model = BERT_model(

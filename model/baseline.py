@@ -250,7 +250,6 @@ class MaskGRU_model(nn.Module):
                 dropout=0.,
                 use_pretrain=True,
                 bidirectional=False,
-                num_layer=1,
                     ):
         super().__init__()
         wv = read_pkl(wv_model_file).wv.vectors
