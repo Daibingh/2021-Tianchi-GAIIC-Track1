@@ -263,7 +263,7 @@ class Trainer:
                     break
             
         if F.early_stop and _num < F.early_stop_num:
-            L.info('>>>>>>>> Do not meet early-stopping! the best score is {} on epoch {} <<<<<<<<'.format(_best, _best_epoch))
+            L.info('>>>>>>>> Do not meet early-stopping! The best score is {} on epoch {} <<<<<<<<'.format(_best, _best_epoch))
         if stop_cond is not None and not stop_cond(score):
             L.info('>>>>>>>> Do not meet cond-stopping! <<<<<<<<')
 

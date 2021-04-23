@@ -1,7 +1,7 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 15,
+    "epochs": 20,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
@@ -29,7 +29,7 @@
     "higher_better": true,
     "early_stop": true,
     "early_stop_num": 4,
-    "folder_id": "gru_usepre",
+    "folder_id": "gru_coslr",
     "resume_path": null,
     "debug": false,
     "config_file": "config/gru.json",
@@ -64,5 +64,5 @@
     "auto_random": false,
     "val_score_limit": 100,
     "T_0": 15,
-    "pretrain_model_file": "pretrain/task1/gru/=2021_04_23_19_11_49_gru_task1_pre=/2021_04_23_19_13_00/model.pth"
+    "pretrain_model_file": null
 }

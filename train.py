@@ -275,8 +275,8 @@ if __name__ == "__main__":
 
             base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
             # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
-            # lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch: warmup_only(epoch))
-            lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
+            lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs) )
+            # lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
 
             T.train(F, 
                     model, 
