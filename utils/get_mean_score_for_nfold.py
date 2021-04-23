@@ -26,3 +26,5 @@ if __name__ == "__main__":
 
     with open( J(root_path, "mean_score.json") , 'w') as f:
         json.dump(mean_score, f, indent=4)
+    for k, v in mean_score.items():
+        print( "{} = {}".format( k, v ) )

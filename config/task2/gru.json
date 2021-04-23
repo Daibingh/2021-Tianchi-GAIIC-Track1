@@ -2,7 +2,7 @@
     "info": "",
     "start_epoch": 1,
     "epochs": 200,
-    "batch_size": 100,
+    "batch_size": 64,
     "optimizer": "AdamW",
     "lr": 0.0005,
     "momentum": 0.9,
@@ -50,7 +50,7 @@
         "data/rd2_train_label2.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 10,
+    "n_fold": 5,
     "fold_start": 1,
     "model_name": "gru",
     "rnn_num_layer": 2,
