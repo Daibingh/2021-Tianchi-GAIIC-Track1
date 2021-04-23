@@ -44,6 +44,12 @@ def warmup_cosine_lr(epoch, warmup_epoch=5, max_epoch=100):
     else:
         return 0.5 * ( math.cos( (epoch - warmup_epoch) /(max_epoch - warmup_epoch) * math.pi ) + 1 )
 
+def cosine_lr(epoch, offset=5, max_epoch=100):
+    if epoch <= offset:
+        return 1
+    else:
+        return 0.5 * ( math.cos( (epoch - offset) /(max_epoch - offset) * math.pi ) + 1 )
+
 def warmup_step_lr(epoch, warmup_epoch=5, step_size=10, gamma=.1):
     if epoch <= warmup_epoch:
         return epoch / warmup_epoch
