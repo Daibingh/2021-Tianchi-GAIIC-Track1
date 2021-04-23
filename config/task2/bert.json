@@ -44,7 +44,7 @@
     "output_path": "pred",
     "seq_mask_ratio": 0.15,
     "seq_pad_meth": "post",
-    "bert_model_file": "saving/=2021_04_07_16_27_36_bert_pretrain=/last/model.pth",
+    "pretrain_model_file": "saving/=2021_04_07_16_27_36_bert_pretrain=/last/model.pth",
     "model_name": "bert",
     "val_score_limit": 0.974
 }

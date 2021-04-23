@@ -1,4 +1,5 @@
 #!/bin/sh
+# sh train.sh
 rm result*.csv
 python preprocess.py
 python utils/gen_model_list.py saving/task1

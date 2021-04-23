@@ -50,7 +50,7 @@
     "seq_mask_ratio": 0.8,
     "seq_rep_prob": 0.15,
     "seq_pad_meth": "post",
-    "nezha_model_file": null,
+    "pretrain_model_file": null,
     "val_score_limit": 100,
     "debug": false,
     "model_name": "nezha",

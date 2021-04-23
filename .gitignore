@@ -9,4 +9,4 @@ __pycache__
 .vscode
 Solution.md
 login.sh
-
+pretrain/

@@ -44,5 +44,5 @@
     "output_path": "/content/drive/Shareddrives/daibingh/Ali_round1/pred",
     "seq_mask_ratio": 0.05,
     "seq_pad_meth": "post",
-    "bert_model_file": "/content/drive/Shareddrives/daibingh/Ali_round1/bert_saving/=2021_04_02_18_02_03_pretrain=/last/model.pth"
+    "pretrain_model_file": "/content/drive/Shareddrives/daibingh/Ali_round1/bert_saving/=2021_04_02_18_02_03_pretrain=/last/model.pth"
 }

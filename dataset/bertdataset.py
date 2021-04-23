@@ -112,7 +112,7 @@ class BERTDataset(Dataset):
                 d['label'] = self.label.iloc[item].tolist()
             return d
 
-    def select(self, idx):
+    def subset(self, idx):
         d = copy.deepcopy(self)
         d.data = d.data.iloc[idx]
         if d.label is not None:
@@ -128,16 +128,16 @@ class BERTDataset(Dataset):
         for i, sp in enumerate(splits):
             num = int(len(self) / sum(splits) * sp)
             if i == len(splits)-1:
-                dataset_splits.append(self.select(idx[start:]))
+                dataset_splits.append(self.subset(idx[start:]))
             else:
-                dataset_splits.append(self.select(idx[start:start+num]))
+                dataset_splits.append(self.subset(idx[start:start+num]))
             start += num
         return dataset_splits
 
     def n_fold_split(self, n_fold=5, shuffle=False):
         idx = self.index
         for tr_idx, val_idx in KFold(n_fold, shuffle=shuffle).split(idx):
-            yield self.select(tr_idx), self.select(val_idx)
+            yield self.subset(tr_idx), self.subset(val_idx)
 
     def random_word(self, sentence):
         tokens = sentence.split()

@@ -21,6 +21,7 @@ from utils.misc import *
 import time
 from torch.optim.lr_scheduler import LambdaLR, CosineAnnealingWarmRestarts
 from utils.lookahead import Lookahead
+import copy
 
 
 def crt_model(F):
@@ -152,7 +153,7 @@ if __name__ == "__main__":
         )
     
     if F.debug:
-        dataset = dataset.select(dataset.index[:500])
+        dataset = dataset.subset(dataset.index[:500])
         F.batch_size = 5
         F.enable_logging = False
         F.enable_saving = False
@@ -189,6 +190,8 @@ if __name__ == "__main__":
                                             ),
         )
 
+        if len(dataset_val) == 0:
+            dataset_val = copy.deepcopy(dataset.subset(dataset.index[:1000]))
         dl_val = DataLoader( dataset_val,
             batch_size=F.batch_size*4,
             drop_last=False,
@@ -205,11 +208,8 @@ if __name__ == "__main__":
 
         model = crt_model(F).to(device)
 
-        if F.model_name.lower() == "nezha" and F.nezha_model_file is not None:
-            model.load_state_dict( torch.load(F.nezha_model_file), strict=False )
-
-        if F.model_name.lower() == "bert" and F.bert_model_file is not None:
-            model.load_state_dict( torch.load(F.bert_model_file), strict=False ) 
+        if F.pretrain_model_file is not None:
+            model.load_state_dict( torch.load(F.pretrain_model_file), strict=False )
 
         # base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
         # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
@@ -268,18 +268,15 @@ if __name__ == "__main__":
             
             model = crt_model(F).to(device)
 
-            if F.model_name.lower() == "nezha" and F.nezha_model_file is not None:
-                model.load_state_dict( torch.load(F.nezha_model_file), strict=False )
-
-            if F.model_name.lower() == "bert" and F.bert_model_file is not None:
-                model.load_state_dict( torch.load(F.bert_model_file), strict=False )
+            if F.pretrain_model_file is not None:
+                model.load_state_dict( torch.load(F.pretrain_model_file), strict=False )
 
             F.folder_id = "{}_nfold{}-{}".format(folder_id, F.n_fold, i+1)
 
-            # base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
+            base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
             # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
             # lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch: warmup_only(epoch))
-            # lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
+            lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
 
             T.train(F, 
                     model, 
@@ -288,8 +285,8 @@ if __name__ == "__main__":
                     forward_batch_fun=forward_batch_fun, 
                     hold_best_model=False,
                     stop_cond=lambda sc: sc['val_score'] > F.val_score_limit ,
-                    # optimizer=base_opt,
-                    # lr_scheduler=lr_scheduler,
+                    optimizer=base_opt,
+                    lr_scheduler=lr_scheduler,
                     step_fun=train_step_fun,
                     )
 

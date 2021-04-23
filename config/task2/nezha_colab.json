@@ -55,7 +55,7 @@
     "seq_mask_ratio": 0.8,
     "seq_rep_prob": 0.15,
     "seq_pad_meth": "post",
-    "nezha_model_file": "/content/drive/Shareddrives/daibingh/Ali_round1/nezha_saving/=2021_04_16_15_05_36_nezha_pretrain=/2021_04_16_16_07_37/model.pth",
+    "pretrain_model_file": "/content/drive/Shareddrives/daibingh/Ali_round1/nezha_saving/=2021_04_16_15_05_36_nezha_pretrain=/2021_04_16_16_07_37/model.pth",
     "val_score_limit": 100,
     "model_name": "nezha",
     "use_fgm": true,

@@ -256,11 +256,16 @@ class Trainer:
                 else:
                     _num += 1
                 if F.early_stop and _num == F.early_stop_num:
-                    L.info('>>>>>>>> early stop on {}, the best is {} <<<<<<<<'.format(_best_epoch, _best))
+                    L.info('>>>>>>>> Meet early-stopping, the best score is {} on epoch {} <<<<<<<<'.format(_best, _best_epoch))
                     break
                 if stop_cond is not None and stop_cond(score):
-                    L.info('>>>>>>>> cond stop on {}, the best is {} <<<<<<<<'.format(_best_epoch, _best))
+                    L.info('>>>>>>>> Meet cond-stopping, the best score is {} on epoch {} <<<<<<<<'.format(_best, _best_epoch))
                     break
+            
+        if F.early_stop and _num < F.early_stop_num:
+            L.info('>>>>>>>> Do not meet early-stopping! the best score is {} on epoch {} <<<<<<<<'.format(_best, _best_epoch))
+        if stop_cond is not None and not stop_cond(score):
+            L.info('>>>>>>>> Do not meet cond-stopping! <<<<<<<<')
 
         L.clear()
         for k,v in old_flag.items():

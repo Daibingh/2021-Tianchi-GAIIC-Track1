@@ -129,7 +129,7 @@ class MyDataset(Dataset):
             item['label'] = self.label.iloc[idx].tolist()
         return item
 
-    def select(self, idx):
+    def subset(self, idx):
         d = copy.deepcopy(self)
         d.data = d.data.iloc[idx]
         if d.label is not None:
@@ -145,16 +145,16 @@ class MyDataset(Dataset):
         for i, sp in enumerate(splits):
             num = int(len(self) / sum(splits) * sp)
             if i == len(splits)-1:
-                dataset_splits.append(self.select(idx[start:]))
+                dataset_splits.append(self.subset(idx[start:]))
             else:
-                dataset_splits.append(self.select(idx[start:start+num]))
+                dataset_splits.append(self.subset(idx[start:start+num]))
             start += num
         return dataset_splits
 
     def n_fold_split(self, n_fold=5, shuffle=False):
         idx = self.index
         for tr_idx, val_idx in KFold(n_fold, shuffle=shuffle).split(idx):
-            yield self.select(tr_idx), self.select(val_idx)
+            yield self.subset(tr_idx), self.subset(val_idx)
 
 
 class MyDataset2(Dataset):
@@ -198,7 +198,7 @@ class MyDataset2(Dataset):
             item['label'] = torch.tensor(self.label.loc[rid].values, dtype=torch.float32)
         return item
 
-    def select(self, rid):
+    def subset(self, rid):
         d = copy.deepcopy(self)
         d.data = d.data.loc[rid]
         if d.label is not None:
@@ -214,16 +214,16 @@ class MyDataset2(Dataset):
         for i, sp in enumerate(splits):
             num = int(len(self) / sum(splits) * sp)
             if i == len(splits)-1:
-                dataset_splits.append(self.select(rid[start:]))
+                dataset_splits.append(self.subset(rid[start:]))
             else:
-                dataset_splits.append(self.select(rid[start:start+num]))
+                dataset_splits.append(self.subset(rid[start:start+num]))
             start += num
         return dataset_splits
 
     def n_fold_split(self, n_fold=5, shuffle=False):
         rid = self.index
         for tr_idx, val_idx in KFold(n_fold, shuffle=shuffle).split(rid):
-            yield self.select([rid[i] for i in tr_idx]), self.select([rid[i] for i in val_idx])
+            yield self.subset([rid[i] for i in tr_idx]), self.subset([rid[i] for i in val_idx])
 
 
 class MyDataset3(Dataset):
@@ -278,7 +278,7 @@ class MyDataset3(Dataset):
             item['label'] = torch.tensor(self.label.loc[rid].values, dtype=torch.float32)
         return item
 
-    def select(self, rid):
+    def subset(self, rid):
         d = copy.deepcopy(self)
         d.data = d.data.loc[rid]
         if d.label is not None:
@@ -294,16 +294,16 @@ class MyDataset3(Dataset):
         for i, sp in enumerate(splits):
             num = int(len(self) / sum(splits) * sp)
             if i == len(splits)-1:
-                dataset_splits.append(self.select(rid[start:]))
+                dataset_splits.append(self.subset(rid[start:]))
             else:
-                dataset_splits.append(self.select(rid[start:start+num]))
+                dataset_splits.append(self.subset(rid[start:start+num]))
             start += num
         return dataset_splits
 
     def n_fold_split(self, n_fold=5, shuffle=False):
         rid = self.index
         for tr_idx, val_idx in KFold(n_fold, shuffle=shuffle).split(rid):
-            yield self.select([rid[i] for i in tr_idx]), self.select([rid[i] for i in val_idx])
+            yield self.subset([rid[i] for i in tr_idx]), self.subset([rid[i] for i in val_idx])
 
 
 def crt_dataset(F):
