@@ -1,7 +1,7 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 200,
+    "epochs": 15,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
@@ -10,7 +10,7 @@
     "workers": 4,
     "dataset_splits": [
         8,
-        2
+        0
     ],
     "shuffle_dataset": true,
     "random_seed": 937,
@@ -22,14 +22,14 @@
     "save_num_best": 2,
     "save_mode": "best",
     "save_model_name": "model",
-    "save_every_epochs": 10,
+    "save_every_epochs": 1,
     "save_last": false,
     "not_save_keys_file": null,
     "primary_score": "val_score",
     "higher_better": true,
     "early_stop": true,
     "early_stop_num": 4,
-    "folder_id": "gru",
+    "folder_id": "gru_usepre",
     "resume_path": null,
     "debug": false,
     "config_file": "config/gru.json",
@@ -40,7 +40,7 @@
     "rnn_dim": 256,
     "wv_model_file": "data/wv_model_128.pkl",
     "fix_emb": false,
-    "dropout": 0.15,
+    "dropout": 0.25,
     "emb_pretrain": false,
     "num_label": 17,
     "data_file": [
@@ -59,9 +59,10 @@
     "rnn_bid": true,
     "seq_rever": false,
     "seq_mask_ratio": 0.8,
-    "seq_rep_prob": 0.05,
+    "seq_rep_prob": 0.15,
     "seq_pad_meth": "post",
     "auto_random": false,
     "val_score_limit": 100,
-    "T_0": 15
+    "T_0": 15,
+    "pretrain_model_file": "pretrain/task1/gru/=2021_04_23_19_11_49_gru_task1_pre=/2021_04_23_19_13_00/model.pth"
 }
