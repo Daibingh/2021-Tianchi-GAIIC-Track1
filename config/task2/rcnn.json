@@ -1,12 +1,12 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 200,
+    "epochs": 30,
     "batch_size": 100,
     "optimizer": "AdamW",
-    "lr": 0.0005,
+    "lr": 0.001,
     "momentum": 0.9,
-    "weight_decay": 0.005,
+    "weight_decay": 0.01,
     "workers": 4,
     "dataset_splits": [
         8,
@@ -17,8 +17,8 @@
     "device": "cuda",
     "enable_logging": true,
     "enable_saving": true,
-    "logging_path": "logging",
-    "saving_path": "saving",
+    "logging_path": "logging/task2",
+    "saving_path": "saving/task2",
     "save_num_best": 2,
     "save_mode": "best",
     "save_model_name": "model",
@@ -45,7 +45,7 @@
         "data/rd2_train_label2.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 10,
     "fold_start": 1,
     "model_name": "rcnn",
     "rnn_num_layer": 2,
@@ -56,5 +56,7 @@
     "seq_pad_meth": "post",
     "auto_random": false,
     "config_file": "config/rcnn_config.json",
-    "val_score_limit": 100
+    "val_score_limit": 100,
+    "pretrain_model_file": null,
+    "verbose": 0
 }

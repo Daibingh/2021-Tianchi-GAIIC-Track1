@@ -18,7 +18,7 @@
     "enable_logging": true,
     "enable_saving": true,
     "logging_path": "logging/task1",
-    "saving_path": "tmp/task1",
+    "saving_path": "saving/task1",
     "save_num_best": 2,
     "save_mode": "best",
     "save_model_name": "model",
@@ -29,7 +29,7 @@
     "higher_better": true,
     "early_stop": true,
     "early_stop_num": 4,
-    "folder_id": "gru_coslr",
+    "folder_id": "gru",
     "resume_path": null,
     "debug": false,
     "config_file": "config/gru.json",
@@ -52,7 +52,7 @@
         "data/rd2_train_label.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 10,
     "fold_start": 1,
     "model_name": "gru",
     "rnn_num_layer": 2,
@@ -64,5 +64,6 @@
     "auto_random": false,
     "val_score_limit": 100,
     "T_0": 15,
-    "pretrain_model_file": null
+    "pretrain_model_file": null,
+    "verbose": 0
 }

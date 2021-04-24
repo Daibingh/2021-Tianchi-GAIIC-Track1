@@ -18,7 +18,7 @@
     "enable_logging": true,
     "enable_saving": true,
     "logging_path": "logging/task2",
-    "saving_path": "tmp/task2",
+    "saving_path": "saving/task2",
     "save_num_best": 2,
     "save_mode": "best",
     "save_model_name": "model",
@@ -50,7 +50,7 @@
         "data/rd2_train_label2.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 10,
     "fold_start": 1,
     "model_name": "gru",
     "rnn_num_layer": 2,
@@ -62,5 +62,6 @@
     "auto_random": false,
     "val_score_limit": 100,
     "T_0": 20,
-    "pretrain_model_file": "pretrain/task2/gru/=2021_04_23_17_38_22_gru_task2_pre=/2021_04_23_17_38_45/model.pth"
+    "pretrain_model_file": null,
+    "verbose": 0
 }

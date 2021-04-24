@@ -153,14 +153,15 @@ if __name__ == "__main__":
         )
     
     if F.debug:
-        dataset = dataset.subset(dataset.index[:500])
-        F.batch_size = 5
+        dataset = dataset.subset(dataset.index[:100])
+        F.batch_size = 50
         F.enable_logging = False
         F.enable_saving = False
         # F.epochs = 2
         # F.device = "cpu"
         # F.workers = 0
         F.n_fold = -1
+        F.verbose = 0
 
     device = torch.device(F.device)
 
@@ -226,6 +227,7 @@ if __name__ == "__main__":
                 # optimizer=base_opt,
                 # lr_scheduler=lr_scheduler,
                 step_fun=train_step_fun,
+                verbose=F.verbose,
                 )
 
     else:
@@ -288,6 +290,7 @@ if __name__ == "__main__":
                     optimizer=base_opt,
                     lr_scheduler=lr_scheduler,
                     step_fun=train_step_fun,
+                    verbose=F.verbose,
                     )
 
             del model

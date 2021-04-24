@@ -1,4 +1,14 @@
 #!/bin/sh
-python train.py -f config/gru_config.json
-python train.py -f config/bigru_atten2_config.json
-python train.py -f config/rcnn_config.json
+mkdir -p logging/task1
+mkdir -p logging/task2
+rm -rf saving/task1/*
+rm -rf saving/task2/*
+
+echo "start training ..."
+python train.py -f config/task1/gru.json
+python train.py -f config/task1/bigru_atten2.json
+python train.py -f config/task1/rcnn.json
+
+python train.py -f config/task2/gru.json
+python train.py -f config/task2/bigru_atten2.json
+python train.py -f config/task2/rcnn.json

@@ -1,12 +1,12 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 200,
+    "epochs": 25,
     "batch_size": 100,
     "optimizer": "AdamW",
-    "lr": 0.0005,
+    "lr": 0.001,
     "momentum": 0.9,
-    "weight_decay": 0.005,
+    "weight_decay": 0.01,
     "workers": 4,
     "dataset_splits": [
         8,
@@ -17,8 +17,8 @@
     "device": "cuda",
     "enable_logging": true,
     "enable_saving": true,
-    "logging_path": "logging",
-    "saving_path": "tmp/task2",
+    "logging_path": "logging/task2",
+    "saving_path": "saving/task2",
     "save_num_best": 2,
     "save_mode": "best",
     "save_model_name": "model",
@@ -47,15 +47,17 @@
         "data/rd2_train_label2.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 10,
     "fold_start": 1,
     "model_name": "bigru_atten2",
     "rnn_num_layer": 2,
     "rnn_bid": true,
     "seq_rever": false,
     "seq_mask_ratio": 0.8,
-    "seq_rep_prob": 0.1,
+    "seq_rep_prob": 0.15,
     "seq_pad_meth": "post",
     "auto_random": false,
-    "val_score_limit": 100
+    "val_score_limit": 100,
+    "pretrain_model_file": null,
+    "verbose": 0
 }
