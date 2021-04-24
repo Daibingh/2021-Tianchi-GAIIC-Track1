@@ -6,7 +6,8 @@ from os.path import join as J
 
 
 updated = {
-    "wv_model_file": "data/wv_model_128.pkl",
+    # "wv_model_file": "data/wv_model_128.pkl",
+    "verbose": 0
 }
 
 
