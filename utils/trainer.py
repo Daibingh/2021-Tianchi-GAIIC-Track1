@@ -117,7 +117,7 @@ class Trainer:
                 step_fun=None,
                 hold_best_model=False,
                 optimizer=None,
-                verbose=0,
+                verbose=1,
                 stop_cond=None,
                 lr_scheduler=None,
                 **kws
@@ -207,7 +207,7 @@ class Trainer:
                         lr_scheduler.step( epoch-1 + it/len(dl_tr) )
                         sc['lr'] = lr_scheduler.get_lr()[0]
 
-                    L.info("[{}/{}][{}/{}] - {}".format(epoch, F.epochs, it+1, len(dl_tr), " - ".join( [ "{}: {:.3f}".format(k, v) for k,v in sc.items() ] ) ))
+                    L.debug("[{}/{}][{}/{}] - {}".format(epoch, F.epochs, it+1, len(dl_tr), " - ".join( [ "{}: {:.3f}".format(k, v) for k,v in sc.items() ] ) ))
                     L2.write(data=sc, step=(epoch - 1) * len(dl_tr) + it + 1)
                 
                 model.eval()

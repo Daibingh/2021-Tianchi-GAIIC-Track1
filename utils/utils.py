@@ -162,20 +162,22 @@ logging.Formatter.converter = beijing
 
 class Logger:
     
-    def __init__(self, file_name=None, mode='a', verbose=0):
-        self._logger = logging.getLogger()
-        self._logger.setLevel(logging.INFO)
+    def __init__(self, file_name=None, mode='a', verbose=1):
+        self._logger = logging.getLogger("Logger")
+        self._logger.setLevel(logging.DEBUG)
         stream_handler = logging.StreamHandler()
         if verbose < 0:
             stream_handler.setLevel(logging.WARNING)
-        else:
+        elif verbose == 0:
             stream_handler.setLevel(logging.INFO)
-        formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+        else:
+            stream_handler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(fmt='%(asctime)s - %(name)s - %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
         stream_handler.setFormatter(formatter)
         self._logger.addHandler(stream_handler)
         if file_name:
             file_handler = logging.FileHandler(file_name, mode=mode)
-            file_handler.setLevel(logging.INFO)
+            file_handler.setLevel(logging.DEBUG)
             file_handler.setFormatter(formatter)
             self._logger.addHandler(file_handler)
 
@@ -190,8 +192,8 @@ class Logger:
     
     def add_file_handler(self, file_name, mode='a'):
         file_handler = logging.FileHandler(file_name, mode=mode)
-        file_handler.setLevel(logging.INFO)
-        formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+        file_handler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(fmt='%(asctime)s - %(name)s - %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
         file_handler.setFormatter(formatter)
         self._logger.addHandler(file_handler)
 
