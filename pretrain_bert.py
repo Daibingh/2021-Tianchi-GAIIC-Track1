@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
     device = torch.device(F.device)
 
-    dataset_tr, dataset_val = dataset.split(eval(F.dataset_splits))
+    dataset_tr, dataset_val = dataset.split(F.dataset_splits)
 
     dl_tr = DataLoader(
                         dataset_tr, 

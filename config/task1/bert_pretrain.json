@@ -9,7 +9,7 @@
     "step_size": 10,
     "gamma": 0.5,
     "workers": 4,
-    "dataset_splits": "[8, 0]",
+    "dataset_splits": [8, 0],
     "shuffle_dataset": true,
     "random_seed": 937,
     "device": "cuda",
