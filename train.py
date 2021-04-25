@@ -154,14 +154,14 @@ if __name__ == "__main__":
     
     if F.debug:
         dataset = dataset.subset(dataset.index[:100])
-        F.batch_size = 50
+        F.batch_size = 10
         F.enable_logging = False
         F.enable_saving = False
-        # F.epochs = 2
+        F.epochs = 2
         # F.device = "cpu"
         # F.workers = 0
         F.n_fold = -1
-        F.verbose = 0
+        F.verbose = 1
 
     device = torch.device(F.device)
 
@@ -232,6 +232,8 @@ if __name__ == "__main__":
 
     else:
 
+        score_list = []
+
         folder_id = F.folder_id
         for i, (dataset_tr, dataset_val) in enumerate(dataset.n_fold_split(F.n_fold, shuffle=F.shuffle_dataset)):
 
@@ -295,3 +297,12 @@ if __name__ == "__main__":
 
             del model
             torch.cuda.empty_cache()
+
+            score_list.append( T.best_score )
+            score_list[-1]['epoch'] = T.best_epoch
+        
+        mean_score = { k : np.mean( [ t[k] for t in score_list ] ) for k in score_list[0] }
+        print(mean_score)
+        if F.enable_saving:
+            with open(J(F.saving_path, "mean_score.json"), 'w', encoding='utf-8') as f:
+                json.dump(mean_score, f, indent=4)
