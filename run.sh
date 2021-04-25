@@ -4,7 +4,7 @@ mkdir data
 python preprocess.py
 python utils/word2vec_pretain.py 
 
-# sh train.sh
+sh train.sh
 
 python utils/gen_model_list.py saving/task1
 python utils/gen_model_list.py saving/task2

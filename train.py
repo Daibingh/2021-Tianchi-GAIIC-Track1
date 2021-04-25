@@ -151,6 +151,11 @@ if __name__ == "__main__":
                 reverse=F.seq_rever,
                 # rep_prob=F.seq_rep_prob,
         )
+
+    # dataset = dataset.subset(dataset.index[:100])
+    # F.batch_size = 20
+    # F.epochs = 2
+    # F.n_fold = 2
     
     if F.debug:
         dataset = dataset.subset(dataset.index[:100])
@@ -277,9 +282,9 @@ if __name__ == "__main__":
 
             F.folder_id = "{}_nfold{}-{}".format(folder_id, F.n_fold, i+1)
 
-            base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
+            # base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
             # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
-            lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs) )
+            # lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs) )
             # lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
 
             T.train(F, 
@@ -289,8 +294,8 @@ if __name__ == "__main__":
                     forward_batch_fun=forward_batch_fun, 
                     hold_best_model=False,
                     stop_cond=lambda sc: sc['val_score'] > F.val_score_limit ,
-                    optimizer=base_opt,
-                    lr_scheduler=lr_scheduler,
+                    # optimizer=base_opt,
+                    # lr_scheduler=lr_scheduler,
                     step_fun=train_step_fun,
                     verbose=F.verbose,
                     )
@@ -304,5 +309,5 @@ if __name__ == "__main__":
         mean_score = { k : np.mean( [ t[k] for t in score_list ] ) for k in score_list[0] }
         print(mean_score)
         if F.enable_saving:
-            with open(J(F.saving_path, "mean_score.json"), 'w', encoding='utf-8') as f:
+            with open(J(F.saving_path, "{}_{}_mean_score.json".format(get_name(), F.model_name)), 'w', encoding='utf-8') as f:
                 json.dump(mean_score, f, indent=4)
