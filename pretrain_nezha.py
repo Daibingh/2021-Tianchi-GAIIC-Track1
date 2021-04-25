@@ -25,17 +25,6 @@ if __name__ == '__main__':
     T = Trainer()
     parser = T.get_parser()
 
-    # parser.add_argument('--h_size', default=256, type=int)
-    # parser.add_argument('--vocab_file', default='vocab.pkl')
-    # parser.add_argument('--dropout', type=float, default=0.1)
-    # parser.add_argument('--data_file')
-    # parser.add_argument('--test_file')
-    # parser.add_argument('--seq_len', type=int, default=100)
-    # parser.add_argument('--n_layer', default=8, type=int)
-    # parser.add_argument('--n_head', default=8, type=int)
-    # parser.add_argument('--seq_mask_ratio', type=float, default=0.)
-    # parser.add_argument('--seq_pad_meth', default="post")
-
     F = parser.parse_args()
 
     # save_config(F, "bert_pretrain_config.json")

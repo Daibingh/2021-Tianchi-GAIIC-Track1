@@ -23,18 +23,6 @@ if __name__ == '__main__':
     T = Trainer()
     parser = T.get_parser()
 
-    # parser.add_argument('--h_size', default=256, type=int)
-    # parser.add_argument('--vocab_file', default='vocab.pkl')
-    # parser.add_argument('--dropout', type=float, default=0.1)
-    # parser.add_argument('--data_file')
-    # parser.add_argument('--test_file')
-    # parser.add_argument('--seq_len', type=int, default=100)
-    # parser.add_argument('--n_layer', default=8, type=int)
-    # parser.add_argument('--n_head', default=8, type=int)
-    # parser.add_argument('--seq_mask_ratio', type=float, default=0.)
-    # parser.add_argument('--seq_pad_meth', default="post")
-    # parser.add_argument('--model_file')
-
     F = parser.parse_args()
 
     # save_config(F, "bert_pretrain_config.json")
@@ -94,12 +82,11 @@ if __name__ == '__main__':
                     h_size=F.h_size,
                     n_layer=F.n_layer,
                     n_head=F.n_head,
-                    num_label=F.num_label,
                     dropout=F.dropout,
                     ).to(device)
 
-    # if F.model_file is not None:
-    #     model.load_state_dict(torch.load(F.model_file))
+    if F.init_model_file is not None:
+        model.load_state_dict(torch.load(F.init_model_file))
     
     T.train(
         F,
@@ -109,4 +96,5 @@ if __name__ == '__main__':
         forward_batch_fun=bert_pretrain_forward,
         get_loss_fun=bert_pretrain_loss,
         eval_fun=bert_pretrain_eval,
+        verbose=F.verbose,
         )
