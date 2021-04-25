@@ -126,7 +126,7 @@ if __name__ == "__main__":
     F = parser.parse_args()
 
     if F.config_file is not None:
-        load_config(F.config_file, F)
+        load_config(F.config_file, F, ['random_seed'])
 
     # show_config(F)
     # sys.exit(0)

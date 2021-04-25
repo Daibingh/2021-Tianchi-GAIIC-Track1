@@ -28,6 +28,6 @@ if __name__ == '__main__':
 
     wv_model = Word2Vec( size=embedding_size, min_count=1, sg=1, workers=4, window=window )
     wv_model.build_vocab( rpt_list )
-    wv_model.train( rpt_list, total_examples=wv_model.corpus_count, epochs=epochs )
-    to_pkl( wv_model, J( data_path, "wv_model_128.pkl") )    
+    # wv_model.train( rpt_list, total_examples=wv_model.corpus_count, epochs=epochs )
+    to_pkl( wv_model, J( data_path, "wv_model_128.pkl") )
     print("num words:", len(wv_model.wv.index2word))

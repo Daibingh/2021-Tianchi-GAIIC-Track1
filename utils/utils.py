@@ -84,13 +84,14 @@ def show_config(F):
     for k, v in F.__dict__.items():
         print( "{} = {}".format( k, v ) )
         
-def load_config(file, F=None):
+def load_config(file, F=None, ignore_keys=[]):
+    ignore_keys.append('config_file')
     if F is None:
         F = Conf()
     with open(file, mode='r', encoding='utf-8') as f:
         d = json.load(f)
     for k,v in d.items():
-        if k != 'config_file':
+        if k not in ignore_keys:
             setattr(F, k, v)
     return F
 
@@ -218,7 +219,7 @@ class ModelSaver:
         if len(self.costs) > 0:
             pd.Series(self.costs, name='cost').sort_values().to_csv(os.path.join(self.save_path,'info.csv'), header=True, index=True)
 
-    def save_model(self, models, folder, info=None, ignore_keys=None):
+    def save_model(self, models, folder, info=None, ignore_keys=None, use_zip=False):
         assert type(models) == dict
         path = os.path.join(self.save_path, folder)
         if not os.path.exists(path): os.mkdir(path)
@@ -227,7 +228,10 @@ class ModelSaver:
             if ignore_keys is not None:
                 for k in ignore_keys:
                     if k in d: d.pop(k)
-            torch.save(d, '{}.pth'.format(os.path.join(path, name)))
+            try:
+                torch.save(d, '{}.pth'.format(os.path.join(path, name)), _use_new_zipfile_serialization=use_zip)
+            except:
+                torch.save(d, '{}.pth'.format(os.path.join(path, name)))
         if info is not None:
             with open(os.path.join(path, 'info.json'), mode='w', encoding='utf-8') as f:
                 json.dump(info, f, indent=2)
