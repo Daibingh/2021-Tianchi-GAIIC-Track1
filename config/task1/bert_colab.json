@@ -45,6 +45,7 @@
     "desc_max_len": null,
     "n_fold": 5,
     "fold_start": 1,
+    "cos_lr": false,
     "n_layer": 12,
     "n_head": 12,
     "seq_mask_ratio": 0.8,

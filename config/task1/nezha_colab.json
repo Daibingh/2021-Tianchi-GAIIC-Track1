@@ -50,6 +50,7 @@
     "desc_max_len": null,
     "n_fold": 5,
     "fold_start": 1,
+    "cos_lr": false,
     "n_layer": 8,
     "n_head": 8,
     "seq_mask_ratio": 0.8,
