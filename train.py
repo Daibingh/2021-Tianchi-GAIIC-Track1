@@ -22,6 +22,9 @@ import time
 from torch.optim.lr_scheduler import LambdaLR, CosineAnnealingWarmRestarts
 from utils.lookahead import Lookahead
 import copy
+import warnings
+
+warnings.filterwarnings("ignore", message="No positive samples in y_true.*")
 
 
 def crt_model(F):
@@ -126,7 +129,11 @@ if __name__ == "__main__":
     F = parser.parse_args()
 
     if F.config_file is not None:
-        load_config(F.config_file, F, ['random_seed'])
+        load_config(
+                    F.config_file, 
+                    F, 
+                    ignore_keys=['random_seed']
+                    )
 
     # show_config(F)
     # sys.exit(0)
@@ -282,9 +289,9 @@ if __name__ == "__main__":
 
             F.folder_id = "{}_nfold{}-{}".format(folder_id, F.n_fold, i+1)
 
-            # base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
+            base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
             # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
-            # lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs) )
+            lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs, offset=5) )
             # lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
 
             T.train(F, 
@@ -294,8 +301,8 @@ if __name__ == "__main__":
                     forward_batch_fun=forward_batch_fun, 
                     hold_best_model=False,
                     stop_cond=lambda sc: sc['val_score'] > F.val_score_limit ,
-                    # optimizer=base_opt,
-                    # lr_scheduler=lr_scheduler,
+                    optimizer=base_opt,
+                    lr_scheduler=lr_scheduler,
                     step_fun=train_step_fun,
                     verbose=F.verbose,
                     )

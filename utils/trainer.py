@@ -48,8 +48,8 @@ def _eval_model(F, model, dl, forward_barch_fun, **kws):
         auc = [calc_auc( y_.cpu().numpy()[:,i], y.cpu().numpy()[:,i] )  for i in range(y.shape[1])]
         score['val_auc'] = np.mean(auc)
         score['val_score'] = scoring(score['val_loss'])
-        for i in range(loss.shape[0]):
-            score['val_score_'+str(i)] = scoring(loss[i])
+#        for i in range(loss.shape[0]):
+#            score['val_score_'+str(i)] = scoring(loss[i])
     return score
 
 

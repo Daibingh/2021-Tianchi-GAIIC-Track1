@@ -1,12 +1,12 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 300,
-    "batch_size": 64,
+    "epochs": 40,
+    "batch_size": 50,
     "optimizer": "AdamW",
-    "lr": 0.0002,
+    "lr": 0.0005,
     "momentum": 0.9,
-    "weight_decay": 0.002,
+    "weight_decay": 0.01,
     "workers": 4,
     "dataset_splits": [
         8,
