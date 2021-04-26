@@ -288,11 +288,14 @@ if __name__ == "__main__":
                 model.load_state_dict( torch.load(F.pretrain_model_file), strict=False )
 
             F.folder_id = "{}_nfold{}-{}".format(folder_id, F.n_fold, i+1)
-
-            base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
-            # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
-            lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs, offset=5) )
-            # lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
+            
+            base_opt = None
+            lr_scheduler = None
+            if F.cos_lr:
+                base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
+                # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
+                lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs, offset=5) )
+                # lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
 
             T.train(F, 
                     model, 

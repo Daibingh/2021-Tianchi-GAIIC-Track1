@@ -7,7 +7,10 @@ from os.path import join as J
 
 updated = {
     # "wv_model_file": "data/wv_model_128.pkl",
-    "verbose": 0
+    "verbose": 0,
+    "save_num_best": 2,
+    "n_fold": 20,
+
 }
 
 
