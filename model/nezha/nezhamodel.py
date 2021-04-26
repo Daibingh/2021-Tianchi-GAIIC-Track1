@@ -36,10 +36,10 @@ def nezha_forward(F, model, batch, **kws):
     return model(input_ids, attention_mask=attention_mask)
 
 
-def nezha_train_step_with_fgm(F, model, optimizer, batch, forward_barch_fun, get_loss_fun, **kws):
+def train_step_with_fgm(F, model, optimizer, batch, forward_barch_fun, get_loss_fun, **kws):
     
     emb_name = kws.get("emb_name", "word_embeddings")
-    eps = kws.get("eps", 1)
+    eps = kws.get("fgm_eps", 0.1)
 
     loss, sc = get_loss_fun(F, model, batch, forward_barch_fun)
     loss.backward()

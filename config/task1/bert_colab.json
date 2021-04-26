@@ -51,6 +51,8 @@
     "seq_rep_prob": 0.15,
     "seq_pad_meth": "post",
     "val_score_limit": 100,
+    "use_fgm": false,
+    "fgm_eps": 0.1,
     "pretrain_model_file": "/content/drive/Shareddrives/daibingh/Ali_round1/bert_saving/=2021_04_26_15_42_41_pretrain=/last/model.pth",
     "verbose": 0
 }

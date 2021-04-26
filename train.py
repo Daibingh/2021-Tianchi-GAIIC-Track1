@@ -179,10 +179,21 @@ if __name__ == "__main__":
 
     forward_batch_fun = None
     train_step_fun = None
+    emb_name = None
+    fgm_eps = None
+
     if F.model_name.lower() == "nezha":
         forward_batch_fun = nezha_forward
+        emb_name = "word_embeddings"
+        fgm_eps = F.fgm_eps
         if F.use_fgm:
-            train_step_fun = nezha_train_step_with_fgm
+            train_step_fun = train_step_with_fgm
+    
+    if F.model_name.lower() == "bert":
+        emb_name = "embedding.token"
+        fgm_eps = F.fgm_eps
+        if F.use_fgm:
+            train_step_fun = train_step_with_fgm
 
     if F.n_fold == -1:
         dataset_tr, dataset_val = dataset.split(F.dataset_splits, shuffle=True)
@@ -240,6 +251,8 @@ if __name__ == "__main__":
                 # lr_scheduler=lr_scheduler,
                 step_fun=train_step_fun,
                 verbose=F.verbose,
+                emb_name=emb_name,
+                fgm_eps=fgm_eps,
                 )
 
     else:
@@ -308,6 +321,8 @@ if __name__ == "__main__":
                     lr_scheduler=lr_scheduler,
                     step_fun=train_step_fun,
                     verbose=F.verbose,
+                    emb_name=emb_name,
+                    fgm_eps=fgm_eps,
                     )
 
             del model
