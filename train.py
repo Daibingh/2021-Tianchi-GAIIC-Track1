@@ -191,15 +191,13 @@ if __name__ == "__main__":
     if F.model_name.lower() == "bert":
         from transformers import BertConfig, BertForSequenceClassification
         forward_batch_fun = bert_forward
-        emb_name = "embedding.token"
+        emb_name = "word_embeddings"
         fgm_eps = F.fgm_eps
         if F.use_fgm:
             train_step_fun = train_step_with_fgm
 
     if F.n_fold == -1:
         dataset_tr, dataset_val = dataset.split(F.dataset_splits, shuffle=True)
-
-        # dataset_val.rep_prob = 0
 
         dl_tr = DataLoader( dataset_tr,
             batch_size=F.batch_size,
@@ -262,8 +260,6 @@ if __name__ == "__main__":
 
         folder_id = F.folder_id
         for i, (dataset_tr, dataset_val) in enumerate(dataset.n_fold_split(F.n_fold, shuffle=F.shuffle_dataset)):
-
-            # dataset_val.rep_prob = 0
 
             if i+1 < F.fold_start: continue
 

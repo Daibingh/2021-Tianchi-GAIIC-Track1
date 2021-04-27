@@ -51,6 +51,7 @@ if __name__ == '__main__':
     # F.enable_logging = False
     # F.enable_saving = False
     # F.batch_size = 2
+    
     if F.debug:
         dataset = dataset.subset(dataset.index[:100])
         F.enable_logging = False
