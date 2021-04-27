@@ -130,7 +130,7 @@ if __name__ == "__main__":
         load_config(
                     F.config_file, 
                     F, 
-                    ignore_keys=['random_seed']
+                    # ignore_keys=['random_seed']
                     )
 
     # show_config(F)
