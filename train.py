@@ -25,6 +25,8 @@ import copy
 import warnings
 
 warnings.filterwarnings("ignore", message="No positive samples in y_true.*")
+warnings.filterwarnings("ignore", message="Please also save or load the state.*")
+warnings.filterwarnings("ignore", message="To get the last learning rate computed by the scheduler.*")
 
 
 def crt_model(F):
