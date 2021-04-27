@@ -13,7 +13,7 @@ import os
 from model.baseline import *
 from model.bert.bertmodel import *
 from model.nezha.nezhamodel import *
-from model.nezha.modeling_nezha import *
+# from model.nezha.modeling_nezha import *
 from utils.trainer import Trainer
 from dataset.dataset import *
 from dataset.bertdataset import *
@@ -103,14 +103,10 @@ def crt_model(F):
             )
     elif name == "bert":
         vocab = read_pkl(F.vocab_file)
-        model = BERT_model(
-            vocab_size=len(vocab),
-            h_size=F.h_size,
-            n_layer=F.n_layer,
-            n_head=F.n_head,
-            num_label=F.num_label,
-            dropout=F.dropout,
-        )
+        F.vocab_size = len(vocab)
+        conf = BertConfig(**F.__dict__)
+        conf.num_labels = F.num_label
+        model = BertForSequenceClassification(conf)
     elif name == "nezha":
         vocab = read_pkl(F.vocab_file)
         F.vocab_size = len(vocab)
@@ -168,7 +164,7 @@ if __name__ == "__main__":
     
     if F.debug:
         dataset = dataset.subset(dataset.index[:100])
-        F.batch_size = 10
+        F.batch_size = 2
         F.enable_logging = False
         F.enable_saving = False
         F.epochs = 2
@@ -185,6 +181,7 @@ if __name__ == "__main__":
     fgm_eps = None
 
     if F.model_name.lower() == "nezha":
+        from model.nezha.modeling_nezha import BertConfig, BertForSequenceClassification
         forward_batch_fun = nezha_forward
         emb_name = "word_embeddings"
         fgm_eps = F.fgm_eps
@@ -192,6 +189,8 @@ if __name__ == "__main__":
             train_step_fun = train_step_with_fgm
     
     if F.model_name.lower() == "bert":
+        from transformers import BertConfig, BertForSequenceClassification
+        forward_batch_fun = bert_forward
         emb_name = "embedding.token"
         fgm_eps = F.fgm_eps
         if F.use_fgm:

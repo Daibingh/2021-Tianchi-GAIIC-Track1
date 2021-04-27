@@ -14,6 +14,7 @@ from dataset.dataset import collect_fn
 from dataset.bertdataset import BERTDataset
 from dataset.vocab import WordVocab
 from model.bert.bertmodel import *
+from transformers import BertConfig, BertForMaskedLM
 from utils.misc import *
 import time
 import copy
@@ -45,11 +46,16 @@ if __name__ == '__main__':
                             mask_ngram=F.mask_ngram,
                         )
 
+
+    # dataset = dataset.subset(dataset.index[:100])
+    # F.enable_logging = False
+    # F.enable_saving = False
+    # F.batch_size = 2
     if F.debug:
         dataset = dataset.subset(dataset.index[:100])
         F.enable_logging = False
         F.enable_saving = False
-        F.batch_size = 5
+        F.batch_size = 2
         # F.workers = 0
 
     device = torch.device(F.device)
@@ -77,23 +83,18 @@ if __name__ == '__main__':
                         drop_last=False,
                     )
     
-    model = BERT_model(
-                    vocab_size=len(vocab),
-                    h_size=F.h_size,
-                    n_layer=F.n_layer,
-                    n_head=F.n_head,
-                    dropout=F.dropout,
-                    ).to(device)
+    F.vocab_size = len(vocab)
+    conf = BertConfig(**F.__dict__)
+    model = BertForMaskedLM(conf).to(device)
 
-    if F.init_model_file is not None:
-        model.load_state_dict(torch.load(F.init_model_file))
+    if F.pretrain_model_file is not None:
+        model.load_state_dict(torch.load(F.pretrain_model_file))
     
     T.train(
         F,
         model,
         dl_tr,
         dl_val,
-        forward_batch_fun=bert_pretrain_forward,
         get_loss_fun=bert_pretrain_loss,
         eval_fun=bert_pretrain_eval,
         verbose=F.verbose,
