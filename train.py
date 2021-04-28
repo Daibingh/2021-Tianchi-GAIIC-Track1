@@ -262,6 +262,7 @@ if __name__ == "__main__":
         for i, (dataset_tr, dataset_val) in enumerate(dataset.n_fold_split(F.n_fold, shuffle=F.shuffle_dataset)):
 
             if i+1 < F.fold_start: continue
+            if i+1 > F.fold_start: F.resume_path = None
 
             dl_tr = DataLoader(
                 dataset_tr,
