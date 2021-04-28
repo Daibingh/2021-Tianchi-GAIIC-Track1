@@ -202,18 +202,13 @@ class Trainer:
                 model.train()
                 for it, batch in enumerate(dl_tr):
                     loss, sc = step_fun(F, model, optimizer, batch, forward_batch_fun, get_loss_fun, **kws)
-
-                    if lr_scheduler is not None and lr_scheduler.__class__.__name__ == "CosineAnnealingWarmRestarts":
-                        lr_scheduler.step( epoch-1 + it/len(dl_tr) )
-                        sc['lr'] = lr_scheduler.get_lr()[0]
-
                     L.debug("[{}/{}][{}/{}] - {}".format(epoch, F.epochs, it+1, len(dl_tr), " - ".join( [ "{}: {:.3f}".format(k, v) for k,v in sc.items() ] ) ))
                     L2.write(data=sc, step=(epoch - 1) * len(dl_tr) + it + 1)
                 
                 model.eval()
                 score = eval_fun(F, model, dl_val, forward_batch_fun, **kws)
 
-                if lr_scheduler is not None and lr_scheduler.__class__.__name__ != "CosineAnnealingWarmRestarts":
+                if lr_scheduler is not None:
                     if lr_scheduler.__class__.__name__ == "ReduceLROnPlateau":
                         lr_scheduler.step( score[F.primary_score] )
                     else:
