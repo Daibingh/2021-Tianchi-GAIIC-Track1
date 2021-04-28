@@ -1,6 +1,6 @@
+import torch
 import torch.nn as nn
 from utils.utils import *
-import torch
 import sys
 import numpy as np 
 import pandas as pd 
@@ -24,7 +24,8 @@ from utils.lookahead import Lookahead
 import copy
 import warnings
 
-warnings.filterwarnings("ignore", message="No positive samples in y_true.*")
+
+warnings.filterwarnings("ignore", message="No.*samples in y_true.*")
 warnings.filterwarnings("ignore", message="Please also save or load the state.*")
 warnings.filterwarnings("ignore", message="To get the last learning rate computed by the scheduler.*")
 
@@ -168,10 +169,10 @@ if __name__ == "__main__":
         F.enable_logging = False
         F.enable_saving = False
         F.epochs = 2
-        # F.device = "cpu"
+        F.device = "cpu"
         # F.workers = 0
         F.n_fold = -1
-        F.verbose = 1
+        # F.verbose = 1
 
     device = torch.device(F.device)
 

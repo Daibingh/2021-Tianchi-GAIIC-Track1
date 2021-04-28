@@ -51,7 +51,7 @@
     "val_score_limit": 0.965,
     "fgm_eps": 0.01,
     "use_fgm": true,
-    "verbose": 1,
+    "verbose": 0,
 
     "attention_probs_dropout_prob": 0.1,
     "gradient_checkpointing": false,
