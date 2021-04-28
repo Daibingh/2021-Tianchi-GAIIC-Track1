@@ -5,4 +5,4 @@ logging/
 login.sh
 data/
 *.csv
-
+pretrain/
