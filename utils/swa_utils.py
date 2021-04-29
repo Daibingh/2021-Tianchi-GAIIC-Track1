@@ -253,9 +253,9 @@ class SWALR(_LRScheduler):
         return (lr - alpha * swa_lr) / (1 - alpha)
 
     def get_lr(self):
-        if not self._get_lr_called_within_step:
-            warnings.warn("To get the last learning rate computed by the scheduler, "
-                          "please use `get_last_lr()`.", UserWarning)
+        # if not self._get_lr_called_within_step:
+        #     warnings.warn("To get the last learning rate computed by the scheduler, "
+        #                   "please use `get_last_lr()`.", UserWarning)
         step = self._step_count - 1
         prev_t = max(0, min(1, (step - 1) / self.anneal_epochs))
         prev_alpha = self.anneal_func(prev_t)
