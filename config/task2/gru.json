@@ -1,7 +1,7 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 80,
+    "epochs": 50,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
@@ -28,7 +28,7 @@
     "primary_score": "val_score",
     "higher_better": true,
     "early_stop": true,
-    "early_stop_num": 4,
+    "early_stop_num": 10,
     "folder_id": "gru",
     "resume_path": null,
     "debug": false,
@@ -64,6 +64,9 @@
     "T_0": 20,
     "pretrain_model_file": null,
     "cos_lr": true,
-    "cos_offset": 8,
+    "cos_offset": 10,
+    "use_swa": true,
+    "swa_lr": 0.0005,
+    "swa_start": 30,
     "verbose": 0
 }

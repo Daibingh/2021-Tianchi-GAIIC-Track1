@@ -27,7 +27,7 @@
     "primary_score": "val_score",
     "higher_better": true,
     "early_stop": true,
-    "early_stop_num": 5,
+    "early_stop_num": 10,
     "folder_id": "rcnn",
     "resume_path": null,
     "debug": false,
