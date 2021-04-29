@@ -10,6 +10,7 @@ import json
 import argparse
 from os.path import join as J
 from torch.nn import BCELoss
+from .swa_utils import SWALR
 
 
 def _forward_batch(F, model, batch, **kws):
@@ -67,6 +68,22 @@ class Trainer:
         self.best_score = None
         self.best_epoch = None
         self.best_model = None
+        self.swa_model = None
+        self.n_avg = 0
+        self.avg_fn = lambda averaged_model_parameter, model_parameter, num_averaged: \
+                 averaged_model_parameter + \
+                    (model_parameter - averaged_model_parameter) / (num_averaged + 1)
+
+    def update_parameters(self, model):
+        if self.n_avg == 0: 
+            self.swa_model = copy.deepcopy(model)
+        else:
+            for p_swa, p_model in zip(self.swa_model.parameters(), model.parameters()):
+                device = p_swa.device
+                p_model_ = p_model.detach().to(device)
+                p_swa.detach().copy_(self.avg_fn(p_swa.detach(), p_model_, 
+                                                    torch.tensor(self.n_avg, device=device) ))
+        self.n_avg += 1
 
     @staticmethod
     def get_parser():
@@ -80,6 +97,9 @@ class Trainer:
         parser.add_argument('--lr', default=.001, type=float)
         parser.add_argument('--momentum', default=.9, type=float)
         parser.add_argument('--weight_decay', default=1e-4, type=float)
+        parser.add_argument('--use_swa', action='store_true')
+        parser.add_argument('--swa_lr', type=float, default=0.01)
+        parser.add_argument('--swa_start', type=int, default=20)
         parser.add_argument('--workers', default=4, type=int)
         parser.add_argument('--dataset_splits', default=[7,1,2], type=float, nargs='+')
         parser.add_argument('--shuffle_dataset', action="store_true")
@@ -122,6 +142,12 @@ class Trainer:
                 lr_scheduler=None,
                 **kws
              ):
+
+        self.best_score = None
+        self.best_epoch = None
+        self.best_model = None
+        self.swa_model = None
+        self.n_avg = 0
 
         if lr_scheduler is not None:
             assert optimizer is not None
@@ -190,6 +216,9 @@ class Trainer:
         if F.enable_saving:
             save_config(F, J(F.saving_path, 'config.json'))
 
+        if F.use_swa:
+            swa_scheduler = SWALR(optimizer, swa_lr=F.swa_lr)
+
         with get_logger(logging_path) as L2, \
                     get_saver(saving_path, num_best=F.save_num_best, mode=F.save_mode,
                             every_epochs=F.save_every_epochs) as S:
@@ -205,10 +234,17 @@ class Trainer:
                     L.debug("[{}/{}][{}/{}] - {}".format(epoch, F.epochs, it+1, len(dl_tr), " - ".join( [ "{}: {:.3f}".format(k, v) for k,v in sc.items() ] ) ))
                     L2.write(data=sc, step=(epoch - 1) * len(dl_tr) + it + 1)
                 
-                model.eval()
-                score = eval_fun(F, model, dl_val, forward_batch_fun, **kws)
+                if not F.use_swa or epoch < F.swa_start:
+                    model.eval()
+                    score = eval_fun(F, model, dl_val, forward_batch_fun, **kws)
+                else:
+                    self.update_parameters(model)
+                    self.swa_model.eval()
+                    score = eval_fun(F, self.swa_model, dl_val, forward_batch_fun, **kws)
+                    swa_scheduler.step()
+                    score['lr'] = swa_scheduler.get_lr()[0]
 
-                if lr_scheduler is not None:
+                if lr_scheduler is not None and epoch < F.swa_start:
                     if lr_scheduler.__class__.__name__ == "ReduceLROnPlateau":
                         lr_scheduler.step( score[F.primary_score] )
                     else:
@@ -218,7 +254,7 @@ class Trainer:
                 L.info("[{}/{}][{}/{}] - {}".format(epoch, F.epochs, len(dl_tr), len(dl_tr),  " - ".join( [ "{}: {:.3f}".format(k, v) for k,v in score.items() ] )  ))
                 L2.write(data=score, step=epoch * len(dl_tr))
                 save_state = {
-                                F.save_model_name: model, 
+                                F.save_model_name: model if not F.use_swa or epoch < F.swa_start else self.swa_model, 
                                 'optimizer': optimizer
                             }
                 if lr_scheduler is not None:

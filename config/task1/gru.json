@@ -1,7 +1,7 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 80,
+    "epochs": 60,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
@@ -27,7 +27,7 @@
     "not_save_keys_file": null,
     "primary_score": "val_score",
     "higher_better": true,
-    "early_stop": true,
+    "early_stop": false,
     "early_stop_num": 4,
     "folder_id": "gru",
     "resume_path": null,
@@ -49,7 +49,7 @@
         "data/rd2_train_label.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 20,
+    "n_fold": 5,
     "fold_start": 1,
     "model_name": "gru",
     "rnn_num_layer": 2,
@@ -64,5 +64,8 @@
     "pretrain_model_file": null,
     "cos_lr": true,
     "cos_offset": 8,
+    "use_swa": true,
+    "swa_lr": 0.0005,
+    "swa_start": 28,
     "verbose": 0
 }

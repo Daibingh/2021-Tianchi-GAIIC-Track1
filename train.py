@@ -28,6 +28,7 @@ import warnings
 warnings.filterwarnings("ignore", message="No.*samples in y_true.*")
 warnings.filterwarnings("ignore", message="Please also save or load the state.*")
 warnings.filterwarnings("ignore", message="To get the last learning rate computed by the scheduler.*")
+warnings.filterwarnings("ignore", message="RNN module weights are not part of single contiguous chunk of memory.*")
 
 
 def crt_model(F):
