@@ -1,10 +1,10 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 40,
+    "epochs": 80,
     "batch_size": 50,
     "optimizer": "AdamW",
-    "lr": 0.0005,
+    "lr": 0.001,
     "momentum": 0.9,
     "weight_decay": 0.01,
     "workers": 4,
@@ -45,7 +45,7 @@
         "data/rd2_train_label2.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 10,
+    "n_fold": 20,
     "fold_start": 1,
     "model_name": "rcnn",
     "rnn_num_layer": 2,
@@ -58,5 +58,7 @@
     "config_file": "config/rcnn_config.json",
     "val_score_limit": 100,
     "pretrain_model_file": null,
+    "cos_lr": true,
+    "cos_offset": 8,
     "verbose": 0
 }

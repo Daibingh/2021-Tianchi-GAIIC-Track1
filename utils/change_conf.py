@@ -9,8 +9,15 @@ updated = {
     # "wv_model_file": "data/wv_model_128.pkl",
     "verbose": 0,
     "save_num_best": 2,
+    "save_mode": "best",
+    "early_stop": True,
+    "early_stop_num": 4,
     "n_fold": 20,
-
+    "fold_start": 1,
+    "epochs": 80,
+    "debug": False,
+    "cos_lr": True,
+    "cos_offset": 8,
 }
 
 

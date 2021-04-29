@@ -1,12 +1,12 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 100,
+    "epochs": 80,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
     "momentum": 0.9,
-    "weight_decay": 0.01,
+    "weight_decay": 0.001,
     "workers": 4,
     "dataset_splits": [
         8,
@@ -20,14 +20,14 @@
     "logging_path": "logging/task1",
     "saving_path": "saving/task1",
     "save_num_best": 2,
-    "save_mode": "cycle",
+    "save_mode": "best",
     "save_model_name": "model",
     "save_every_epochs": 25,
     "save_last": false,
     "not_save_keys_file": null,
     "primary_score": "val_score",
     "higher_better": true,
-    "early_stop": false,
+    "early_stop": true,
     "early_stop_num": 4,
     "folder_id": "bigru",
     "resume_path": null,
@@ -49,7 +49,7 @@
         "data/rd2_train_label.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 20,
     "fold_start": 1,
     "model_name": "bigru_atten2",
     "rnn_num_layer": 2,
@@ -63,5 +63,6 @@
     "pretrain_model_file": null,
     "cos_lr": true,
     "T_0": 25,
+    "cos_offset": 8,
     "verbose": 0
 }

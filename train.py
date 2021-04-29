@@ -131,7 +131,7 @@ if __name__ == "__main__":
         load_config(
                     F.config_file, 
                     F, 
-                    # ignore_keys=['random_seed']
+                    ignore_keys=['random_seed', "debug"]
                     )
 
     # show_config(F)
@@ -305,9 +305,9 @@ if __name__ == "__main__":
             lr_scheduler = None
             if F.cos_lr:
                 base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
-                # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
-                # lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs, offset=5) )
-                lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
+                base_opt = Lookahead(base_opt, k=5, alpha=0.5)
+                lr_scheduler = LambdaLR(base_opt, lr_lambda=lambda epoch:  cosine_lr(epoch, max_epoch=F.epochs, offset=F.cos_offset) )
+                # lr_scheduler = CosineAnnealingWarmRestarts(base_opt, T_0=F.T_0, T_mult=1)
 
             T.train(F, 
                     model, 

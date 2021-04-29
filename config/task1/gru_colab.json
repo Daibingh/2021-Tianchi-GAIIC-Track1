@@ -1,7 +1,7 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 200,
+    "epochs": 80,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
@@ -51,7 +51,7 @@
     ],
     "test_file": "data/test.csv",
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 20,
     "model_name": "gru",
     "rnn_num_layer": 2,
     "rnn_bid": true,

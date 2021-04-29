@@ -1,7 +1,7 @@
 {
     "info": "None",
     "start_epoch": 1,
-    "epochs": 200,
+    "epochs": 80,
     "batch_size": 64,
     "optimizer": "adam",
     "lr": 0.0002,
@@ -48,9 +48,9 @@
         "data/rd2_train_label.csv"
     ],
     "desc_max_len": null,
-    "n_fold": 5,
+    "n_fold": 20,
     "fold_start": 1,
-    "cos_lr": false,
+    "cos_lr": true,
     "n_layer": 8,
     "n_head": 8,
     "seq_mask_ratio": 0.8,
