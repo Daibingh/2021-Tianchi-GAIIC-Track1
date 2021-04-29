@@ -125,6 +125,7 @@ if __name__ == "__main__":
 
     T = Trainer()
     parser = T.get_parser()
+    parser.add_argument('--n_fold', default=5, type=int)
 
     F = parser.parse_args()
 
@@ -132,7 +133,11 @@ if __name__ == "__main__":
         load_config(
                     F.config_file, 
                     F, 
-                    ignore_keys=['random_seed', "debug"]
+                    ignore_keys=[
+                        'random_seed', 
+                        "debug",
+                        "n_fold",
+                        ]
                     )
 
     # show_config(F)
@@ -165,14 +170,14 @@ if __name__ == "__main__":
     # F.n_fold = 2
     
     if F.debug:
-        dataset = dataset.subset(dataset.index[:100])
-        F.batch_size = 2
+        # dataset = dataset.subset(dataset.index[:100])
+        # F.batch_size = 5
         F.enable_logging = False
         F.enable_saving = False
-        F.epochs = 2
-        F.device = "cpu"
+        # F.epochs = 2
+        # F.device = "cpu"
         # F.workers = 0
-        F.n_fold = -1
+        # F.n_fold = -1
         # F.verbose = 1
 
     device = torch.device(F.device)
