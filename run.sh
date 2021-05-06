@@ -3,6 +3,8 @@ rm result*.csv
 mkdir data
 python preprocess.py
 python utils/word2vec_pretain.py 
+python utils/gen_corpus.py
+python utils/gen_vocab_for_bert.py
 
 # sh train.sh
 
