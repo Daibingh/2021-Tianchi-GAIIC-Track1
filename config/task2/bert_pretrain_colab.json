@@ -1,7 +1,7 @@
 {
     "info": "None",
     "start_epoch": 1,
-    "epochs": 50,
+    "epochs": 100,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
@@ -26,7 +26,7 @@
     "primary_score": "val_loss",
     "higher_better": false,
     "early_stop": true,
-    "early_stop_num": 10,
+    "early_stop_num": 4,
     "folder_id": "pretrain",
     "resume_path": null,
     "debug": false,

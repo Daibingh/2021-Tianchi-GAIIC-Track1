@@ -31,7 +31,11 @@ if __name__ == '__main__':
     # sys.exit(0)
 
     if F.config_file is not None:
-        load_config(F.config_file, F)
+        load_config(F.config_file, F, 
+                    ignore_keys= [
+                        'debug'
+                    ]
+        )
 
     setup_seed(F.random_seed)
 
@@ -57,6 +61,7 @@ if __name__ == '__main__':
         F.enable_logging = False
         F.enable_saving = False
         F.batch_size = 2
+        F.device = 'cpu'
         # F.workers = 0
 
     device = torch.device(F.device)
@@ -99,4 +104,5 @@ if __name__ == '__main__':
         get_loss_fun=bert_pretrain_loss,
         eval_fun=bert_pretrain_eval,
         verbose=F.verbose,
+        stop_cond = lambda sc : sc['val_loss'] < 1.99,
         )

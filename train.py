@@ -23,6 +23,7 @@ from torch.optim.lr_scheduler import LambdaLR, CosineAnnealingWarmRestarts
 from utils.lookahead import Lookahead
 import copy
 import warnings
+from glob2 import glob
 
 
 warnings.filterwarnings("ignore", message="No.*samples in y_true.*")
@@ -239,7 +240,10 @@ if __name__ == "__main__":
         model = crt_model(F).to(device)
 
         if F.pretrain_model_file is not None:
-            model.load_state_dict( torch.load(F.pretrain_model_file), strict=False )
+                if not os.path.isdir(F.pretrain_model_file):
+                    model.load_state_dict( torch.load(F.pretrain_model_file), strict=False )
+                else:
+                    model.load_state_dict( torch.load( glob( J( F.pretrain_model_file, "**", "last", "model.pth" ) )[0] ), strict=False )
 
         # base_opt = torch.optim.AdamW(lr=F.lr, params=model.parameters(), weight_decay=F.weight_decay)
         # lookahead = Lookahead(base_opt, k=5, alpha=0.5)
@@ -303,7 +307,10 @@ if __name__ == "__main__":
             model = crt_model(F).to(device)
 
             if F.pretrain_model_file is not None:
-                model.load_state_dict( torch.load(F.pretrain_model_file), strict=False )
+                if not os.path.isdir(F.pretrain_model_file):
+                    model.load_state_dict( torch.load(F.pretrain_model_file), strict=False )
+                else:
+                    model.load_state_dict( torch.load( glob( J( F.pretrain_model_file, "**", "last", "model.pth" ) )[0] ), strict=False )
 
             F.folder_id = "{}_nfold{}-{}".format(folder_id, F.n_fold, i+1)
             

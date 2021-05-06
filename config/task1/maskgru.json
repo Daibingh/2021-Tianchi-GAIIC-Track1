@@ -1,7 +1,7 @@
 {
     "info": "",
     "start_epoch": 1,
-    "epochs": 50,
+    "epochs": 100,
     "batch_size": 100,
     "optimizer": "AdamW",
     "lr": 0.001,
@@ -28,7 +28,7 @@
     "primary_score": "val_score",
     "higher_better": true,
     "early_stop": true,
-    "early_stop_num": 10,
+    "early_stop_num": 4,
     "folder_id": "maskgru",
     "resume_path": null,
     "debug": false,
@@ -62,6 +62,6 @@
     "val_score_limit": 100,
     "T_0": 15,
     "pretrain_model_file": null,
-    "cos_lr": true,
+    "cos_lr": false,
     "verbose": 0
 }

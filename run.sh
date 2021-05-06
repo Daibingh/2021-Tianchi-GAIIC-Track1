@@ -6,7 +6,7 @@ python utils/word2vec_pretain.py
 python utils/gen_corpus.py
 python utils/gen_vocab_for_bert.py
 
-# sh train.sh
+sh train.sh
 
 python utils/gen_model_list.py saving/task1
 python utils/gen_model_list.py saving/task2
