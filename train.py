@@ -104,12 +104,14 @@ def crt_model(F):
             bidirectional=F.rnn_bid,
             )
     elif name == "bert":
+        from transformers import BertConfig, BertForSequenceClassification
         vocab = read_pkl(F.vocab_file)
         F.vocab_size = len(vocab)
         conf = BertConfig(**F.__dict__)
         conf.num_labels = F.num_label
         model = BertForSequenceClassification(conf)
     elif name == "nezha":
+        from model.nezha.modeling_nezha import BertConfig, BertForSequenceClassification
         vocab = read_pkl(F.vocab_file)
         F.vocab_size = len(vocab)
         conf = BertConfig.from_dict(F.__dict__)
@@ -188,7 +190,6 @@ if __name__ == "__main__":
     fgm_eps = None
 
     if F.model_name.lower() == "nezha":
-        from model.nezha.modeling_nezha import BertConfig, BertForSequenceClassification
         forward_batch_fun = nezha_forward
         emb_name = "word_embeddings"
         fgm_eps = F.fgm_eps
@@ -196,7 +197,6 @@ if __name__ == "__main__":
             train_step_fun = train_step_with_fgm
     
     if F.model_name.lower() == "bert":
-        from transformers import BertConfig, BertForSequenceClassification
         forward_batch_fun = bert_forward
         emb_name = "word_embeddings"
         fgm_eps = F.fgm_eps

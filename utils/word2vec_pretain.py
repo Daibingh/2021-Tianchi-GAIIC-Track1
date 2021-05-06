@@ -30,8 +30,8 @@ if __name__ == '__main__':
 
     print( "number of rpt:", len( rpt_list ) )
 
-    logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
-    logging.root.setLevel(level=logging.INFO)
+    # logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
+    # logging.root.setLevel(level=logging.INFO)
 
     wv_model = Word2Vec( size=embedding_size, min_count=1, sg=1, workers=4, window=window )
     wv_model.build_vocab( rpt_list )

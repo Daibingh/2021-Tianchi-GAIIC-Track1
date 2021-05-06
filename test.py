@@ -13,7 +13,7 @@ import os
 from model.baseline import *
 from model.bert.bertmodel import *
 from model.nezha.nezhamodel import *
-from model.nezha.modeling_nezha import *
+# from model.nezha.modeling_nezha import *
 from utils.trainer import Trainer
 from dataset.dataset import *
 from dataset.bertdataset import *
@@ -21,16 +21,24 @@ from utils.misc import *
 import time
 from train import crt_model
 from tqdm import tqdm
+from utils.trainer import _forward_batch
 
 
 def predict(F, model, dl):
     device = torch.device(F.device)
     pred = []
     model.eval()
+    if F.model_name.lower() == "bert":
+        forward_barch_fun = bert_forward
+    elif F.model_name.lower() == "nezha":
+        forward_barch_fun = nezha_forward
+    else:
+        forward_barch_fun = _forward_batch
     with torch.no_grad():
         for b in tqdm(dl):
-            x = b['desc'].to(device)
-            y = model(x)
+            # x = b['desc'].to(device)
+            # y = model(x)
+            y = forward_barch_fun(F, model, b)
             pred.append(y.cpu().numpy())
     
     pred = np.concatenate(pred, axis=0)
