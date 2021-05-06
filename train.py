@@ -173,15 +173,15 @@ if __name__ == "__main__":
     # F.n_fold = 2
     
     if F.debug:
-        # dataset = dataset.subset(dataset.index[:100])
-        # F.batch_size = 5
+        dataset = dataset.subset(dataset.index[:50])
+        F.batch_size = 2
         F.enable_logging = False
         F.enable_saving = False
-        # F.epochs = 2
-        # F.device = "cpu"
+        F.epochs = 2
+        F.device = "cpu"
         # F.workers = 0
         # F.n_fold = -1
-        # F.verbose = 1
+        F.verbose = 1
 
     device = torch.device(F.device)
 

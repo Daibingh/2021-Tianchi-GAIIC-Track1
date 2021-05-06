@@ -57,12 +57,14 @@ if __name__ == '__main__':
     # F.batch_size = 2
     
     if F.debug:
-        dataset = dataset.subset(dataset.index[:100])
+        dataset = dataset.subset(dataset.index[:10])
         F.enable_logging = False
-        F.enable_saving = False
+        # F.enable_saving = False
         F.batch_size = 2
+        F.epochs = 1
         F.device = 'cpu'
         # F.workers = 0
+        F.verbose = 1
 
     device = torch.device(F.device)
 
