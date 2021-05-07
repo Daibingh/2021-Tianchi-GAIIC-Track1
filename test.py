@@ -36,8 +36,6 @@ def predict(F, model, dl):
         forward_barch_fun = _forward_batch
     with torch.no_grad():
         for b in tqdm(dl):
-            # x = b['desc'].to(device)
-            # y = model(x)
             y = forward_barch_fun(F, model, b)
             pred.append(y.cpu().numpy())
     

@@ -129,6 +129,7 @@ if __name__ == "__main__":
     T = Trainer()
     parser = T.get_parser()
     parser.add_argument('--n_fold', default=5, type=int)
+    parser.add_argument('--pred_W', default=1, type=int)
 
     F = parser.parse_args()
 
@@ -140,6 +141,7 @@ if __name__ == "__main__":
                         'random_seed', 
                         "debug",
                         "n_fold",
+						"pred_W"
                         ]
                     )
 
@@ -173,14 +175,14 @@ if __name__ == "__main__":
     # F.n_fold = 2
     
     if F.debug:
-        dataset = dataset.subset(dataset.index[:50])
+        dataset = dataset.subset(dataset.index[:10])
         F.batch_size = 2
         F.enable_logging = False
-        F.enable_saving = False
-        F.epochs = 2
+        # F.enable_saving = False
+        F.epochs = 1 
         F.device = "cpu"
         # F.workers = 0
-        # F.n_fold = -1
+        F.n_fold //= 10 
         F.verbose = 1
 
     device = torch.device(F.device)

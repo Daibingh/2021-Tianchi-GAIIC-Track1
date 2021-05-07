@@ -10,7 +10,7 @@ updated = {
     # "batch_size": 100,
     # "lr": 0.001,
 	# "optimizer": "AdamW",
-#    "weight_decay": 0.01,
+    # "weight_decay": 0.01,
     # "save_num_best": 2,
     # "save_mode": "best",
     # "early_stop": True,

@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import pandas as pd
 from glob2 import glob
 from os.path import join as J
@@ -20,8 +21,8 @@ if __name__ == "__main__":
     for f in files:
 
         conf = os.path.sep.join( f.split(os.path.sep)[:-2] + ['config.json']  ) 
-
-        d.append([ f, conf, 1  ] )
+        w = json.load(open(conf, 'r', encoding='utf-8')).get("pred_W", 1)
+        d.append([ f, conf, w  ] )
 
     df = pd.DataFrame(d, columns=['model_path', 'config_path', 'weight'])
     print(df.head())

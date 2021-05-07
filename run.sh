@@ -15,9 +15,9 @@ echo "starting predict ..."
 python test.py \
 		--out_file "result_part1.csv" \
 		--model_list_file "saving/task1/model_list.csv" \
-		--test_file "data/rd2_testA.csv"
+		--test_file "data/rd2_testB.csv"
 python test.py \
 		--out_file "result_part2.csv" \
 		--model_list_file "saving/task2/model_list.csv" \
-		--test_file "data/rd2_testA.csv"
+		--test_file "data/rd2_testB.csv"
 python merge.py
