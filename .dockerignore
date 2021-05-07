@@ -1,8 +1,9 @@
 .git
 __pycache__
-tmp/
-logging/
+/tmp
+/logging
 login.sh
-data/
+/data
 *.csv
-pretrain/
+/pretrain
+

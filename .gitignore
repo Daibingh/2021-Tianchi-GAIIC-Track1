@@ -1,7 +1,7 @@
-tmp/
-logging/
-saving/
-data/
+/tmp
+/logging
+/saving
+/data
 *.zip
 *.csv
 *.ipynb
@@ -9,5 +9,5 @@ __pycache__
 .vscode
 Solution.md
 login.sh
-pretrain/
+/pretrain
 
